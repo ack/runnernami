@@ -1,0 +1,133 @@
+name: Wordpress
+shortDescription: Bitnami Wordpress
+description: Bitnami Wordpress on Ubuntu 14
+imagePath: https://d33np9n32j53g7.cloudfront.net/assets/stacks/wordpress/img/wordpress-stack-110x117-95cc5cc975831baa456f27d7f19c342f.png
+author: Bitnami
+organization: Bitnami
+organizationUrl: http://bitnami.com
+version: 0.1.0
+updateDate: 11/1/2016
+public: false
+defaultPlaybook: playbook.yml
+tags:
+  - CMS
+
+fields:
+- name: dc
+  displayName: Datacenter
+  type: datacenters  
+  required: true
+- name: group
+  displayName: Group
+  parent: dc
+  required: true
+  type: groups
+- name: network_id
+  displayName: Network
+  parent: dc
+  required: true
+  type: networks
+
+- displayName: CPU
+  name: srv_cpu
+  type: slider
+  required: true
+  min: 1
+  max: 16
+  default: 1
+- displayName: Memory (GB)
+  name: srv_mem
+  type: slider
+  required: true
+  min: 1
+  max: 128
+  default: 2
+- displayName: Disk (GB)
+  name: srv_disk
+  type: slider
+  required: true
+  min: 100
+  max: 500
+  default: 100
+
+- displayName: Domain
+  helptext: null
+  name: web_server_domain
+  required: true
+  type: text
+  
+- displayName: Admin Login
+  helptext: null
+  name: base_user
+  required: false
+  type: text
+  default: joe
+- displayName: Admin Email
+  helptext: null
+  name: base_mail
+  required: false
+  default: admin@some.corp
+  type: text
+- displayName: Admin Password
+  helptext: null
+  name: base_password
+  required: true
+  type: password
+
+- displayName: SMTP support?
+  helptext: null
+  name: smtp_enable
+  options:
+  - displayName: 'No'
+    value: '0'
+  - displayName: 'Yes'
+    value: '1'
+  required: false
+  type: select
+- displayName: SMTP User
+  helptext: null
+  name: smtp_user
+  required: false
+  type: text
+- displayName: SMTP Host
+  helptext: null
+  name: smtp_host
+  required: false
+  type: text
+- displayName: SMTP Port
+  helptext: null
+  name: smtp_port
+  required: false
+  type: text
+- displayName: SMTP Secure
+  helptext: null
+  name: smtp_protocol
+  options:
+  - displayName: 
+    value: none
+  - displayName: none
+    value: none
+  - displayName: ssl
+    value: ssl
+  - displayName: tls
+    value: tls
+  required: false
+  type: select
+- displayName: SMTP provider
+  helptext: null
+  name: smtp_email_provider
+  options:
+  - displayName: 
+    value: none
+  - displayName: gmail
+    value: gmail
+  - displayName: custom
+    value: custom
+  required: false
+  type: select
+- displayName: SMTP Password
+  helptext: null
+  name: smtp_password
+  required: false
+  type: password
+

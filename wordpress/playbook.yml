@@ -1,0 +1,26 @@
+---
+- name: infrastructure
+  hosts: localhost
+  roles:
+  - { role: server, srv_name: WP, srv_template: ubuntu-14-64, srv_public: true, public_ip_ports: [80, 443] }
+
+- name: installation
+  hosts: servers
+  tasks:
+  - name: install script
+    script: ./install.sh \
+            apache_server_port='80'
+            apache_server_ssl_port='443'
+            web_server_domain=127.0.0.1
+            base_user=admin
+            base_user_name=Admin
+            base_mail=admin@some.corp
+            base_password=
+            mysql_port='3306'
+            smtp_email_provider=custom
+            smtp_enable='0'
+            smtp_host=localhost
+            smtp_user=root
+            smtp_password=
+            smtp_port='587'
+            smtp_protocol=tls
