@@ -1,0 +1,37 @@
+---
+- name: infra | setup
+  hosts: localhost
+  roles:
+  - { role: server, srv_name: JENKIN, srv_template: ubuntu-14-64 }
+
+- name: install packages
+  hosts: localhost
+  vars:
+    apache_server_port: '80'
+    apache_server_ssl_port: '443'
+    base_mail: admin@some.corp
+    base_password: 
+    base_user: admin
+    base_user_name: Admin
+  
+  tasks:
+  - name: 'package: linux update'
+    with_flattened: groups['servers']
+    clc_blueprint_package:
+      server_ids: ["{{ item }}"]
+      package_id: 77ab3844-579d-4c8d-8955-c69a94a2ba1a
+      package_params: {}
+  - name: 'package: bitnami'
+    with_flattened: groups['servers']
+    clc_blueprint_package:
+      server_ids: ["{{ item }}"]
+      package_id: c8b13fc5-8795-419a-b09b-516c11cb2559
+      package_params:
+        T3.bitnami.apache_server_port: '{{apache_server_port}}'
+        T3.bitnami.apache_server_ssl_port: '{{apache_server_ssl_port}}'
+        T3.bitnami.base_mail: '{{base_mail}}'
+        T3.bitnami.base_password: '{{base_password or "password"}}'
+        T3.bitnami.base_user: '{{base_user}}'
+        T3.bitnami.base_user_name: '{{base_user_name}}'
+    
+  - debug: var=groups['servers'][0]

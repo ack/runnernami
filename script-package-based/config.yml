@@ -1,0 +1,80 @@
+name: Jenkins
+shortDescription: Bitnami Jenkins 
+description: Bitnami Jenkins on Ubuntu 14
+imagePath: https://d33np9n32j53g7.cloudfront.net/assets/stacks/jenkins/img/jenkins-stack-110x117-7ed1d23148c869ee6aa6831a71ad9588.png
+#https://raw.githubusercontent.com/docker-library/docs/3ab4dafb41dd0e959ff9322b3c50af2519af6d85/jenkins/logo.png
+author: Bitnami
+organization: Bitnami
+organizationUrl: http://bitnami.com
+version: 0.1.0
+updateDate: 5/1/2016
+public: true
+defaultPlaybook: playbook.yml
+tags:
+  - OSS
+  - CI/CD
+
+fields:
+- name: dc
+  displayName: Datacenter
+  type: datacenters  
+  required: true
+- name: group
+  displayName: Group
+  parent: dc
+  required: true
+  type: groups
+- name: network_id
+  displayName: Network
+  parent: dc
+  required: true
+  type: networks
+    
+- displayName: CPU
+  name: srv_cpu
+  type: slider
+  required: true
+  min: 1
+  max: 16
+  default: 1
+- displayName: Memory (GB)
+  name: srv_mem
+  type: slider
+  required: true
+  min: 1
+  max: 128
+  default: 2
+- displayName: Disk (GB)
+  name: srv_disk
+  type: slider
+  required: true
+  min: 100
+  max: 500
+  default: 100
+
+
+- displayName: Admin Name
+  helptext: null
+  name: base_user_name
+  required: false
+  type: text
+  default: Joe Admin
+- displayName: Admin Login
+  helptext: null
+  name: base_user
+  required: false
+  type: text
+  default: admin
+- displayName: Admin Email
+  helptext: null
+  name: base_mail
+  required: false
+  default: admin@some.corp
+  type: text
+- displayName: Admin Password
+  helptext: null
+  name: base_password
+  required: true
+  type: password
+
+
